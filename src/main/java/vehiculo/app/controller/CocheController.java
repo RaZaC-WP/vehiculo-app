@@ -1,0 +1,111 @@
+package vehiculo.app.controller;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import vehiculo.app.models.entity.Coche;
+import vehiculo.app.models.service.ICocheService;
+
+@Controller
+@RequestMapping("/views")
+public class CocheController {
+ 
+	@Autowired
+	private ICocheService cocheService;
+	
+	
+	@GetMapping("/")
+	public String listarCoches(Model model) {
+		List<Coche> listadoCoches = cocheService.listarTodos();
+		model.addAttribute("titulo" , "Coches Registrados");
+		model.addAttribute("coches", listadoCoches);
+		
+		return "views/coches";
+	}
+	
+	@GetMapping("/crear")
+	public String crear(Model model) {
+		
+		Coche coche = new Coche();
+		model.addAttribute("titulo", "Formulario: Nuevo Coche");
+		model.addAttribute("coche", coche);
+		
+		return "views/cocheCrear";
+	}
+	
+	@PostMapping("/guardar")//Recibe info de la vista y redirecciona 
+	public String guadar(@Valid @ModelAttribute Coche miCoche,BindingResult result,Model model) {
+		
+		if(result.hasErrors()) {
+			model.addAttribute("titulo", "Formulario: Nuevo Coche");
+			model.addAttribute("coche", miCoche);
+			System.out.println("Errores en el formulario");
+			return "views/cocheCrear";
+		}
+		
+		
+		cocheService.guardar(miCoche);
+		System.out.println("Coche añadido!");
+		return "redirect:/views/";
+	}
+	
+	@GetMapping("/editar/{id}")
+	public String editar(@PathVariable("id") Long idCoche, Model model) {
+		
+		Coche coche = null;
+		
+		if(idCoche > 0) {
+			 coche = cocheService.buscarPorId(idCoche);
+			
+			if (coche == null) {
+				System.out.println("Error el id no existe");
+				return "redirect:/views/";
+			}
+		}else {
+			System.out.println("Error con el id");
+			return "redirect:/views/";
+		}
+		
+		
+		model.addAttribute("titulo", "Formulario: Editar Coche");
+		model.addAttribute("coche", coche);
+		
+		return "views/cocheCrear";
+	}
+	
+	@GetMapping("/borrar/{id}")
+	public String borrar(@PathVariable("id") Long idCoche) {
+		
+		
+Coche coche = null;
+		
+		if(idCoche > 0) {
+			 coche = cocheService.buscarPorId(idCoche);
+			
+			if (coche == null) {
+				System.out.println("Error el id no existe");
+				return "redirect:/views/";
+			}
+		}else {
+			System.out.println("Error con el id");
+			return "redirect:/views/";
+		}
+		
+		cocheService.eliminar(idCoche);
+		
+		return "redirect:/views/";
+	}
+	
+}
