@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="plantilla/template :: head">
 </head>
-<body>
+<body class="bg-danger">
 	<header th:replace="plantilla/template :: header"></header>
 	<div class="container">
 	
@@ -15,20 +15,23 @@
 		<table class="table table-dark table-striped text-center">
 			<thead>
 				<tr>
-
+					<th scope="col">No.</th>
 					<th scope="col">Marca</th>
 					<th scope="col">Modelo</th>
 					<th scope="col">Precio</th>
 					<th scope="col">Puertas</th>
 					<th scope="col">CV</th>
 					<th scope="col">Kil&oacute;metros</th>
-					<th scope="col" colspan="2"></th>
+					<th scope="col"></th>
+					<th scope="col"><a class="btn btn-danger btn-sm"  th:text="'Eliminar'"
+						title="Eliminar coche" th:href="@{/views/borrar/}"></a></th>
 					
 
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="c:${coches}">
+				<tr th:each="c , tabla: ${coches}">
+					<td th:text="${tabla.count}"></td>
 					<th scope="row" th:text="${c.marca}"></th>
 					<td th:text="${c.modelo}"></td>
 					<td th:text="${c.precio}"></td>
@@ -39,17 +42,17 @@
 						th:href="@{/views/editar/} + ${c.id}" th:text="'Editar'"
 						title="Editar coche"></a></td>
 
-					<td><a class="btn btn-danger btn-sm"
-						th:href="@{/views/borrar/} + ${c.id}" th:text="'Borrar'"
-						title="Borrar coche"
-						onclick="return confirm('&iquest;Seguro que quiere eliminar el registro?')"></a></td>
+					<td><input type="checkbox" th:value="${c.id}" th:text="${c.id}"></td>
 
+					
 
 				</tr>
 
 
 			</tbody>
 		</table>
+		
+		
 	</div>
 	<footer th:replace="plantilla/template :: footer"></footer>
 </body>
