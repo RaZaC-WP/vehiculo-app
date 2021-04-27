@@ -16,7 +16,7 @@
 			title="Crear nuevo coche"></a> <br> <br>
 			
 		
-
+<form th:action="@{/borrar}" th:object="${coche}" method="POST">
 		<table class="table table-dark table-striped table-hover text-center">
 			<thead>
 				<tr>
@@ -46,7 +46,7 @@
 						th:href="@{/views/editar/} + ${c.id}" th:text="'Editar'"
 						title="Editar coche"></a></td>
 
-					<td><input type="checkbox"  th:value="${c.id}"></td>
+					<td><input type="checkbox" th:name="id" ></td>
 
 					
 
@@ -56,7 +56,7 @@
 			</tbody>
 		</table>
 		
-		
+		</form>
 	</div>
 	<footer th:replace="plantilla/template :: footer"></footer>
 </body>

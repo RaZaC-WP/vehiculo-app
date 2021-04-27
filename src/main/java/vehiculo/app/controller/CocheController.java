@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import vehiculo.app.models.entity.Coche;
 import vehiculo.app.models.service.ICocheService;
@@ -85,25 +87,18 @@ public class CocheController {
 		return "views/cocheCrear";
 	}
 	
-	@GetMapping("/borrar/{id}")
-	public String borrar(@PathVariable("id") Long idCoche) {
+	@GetMapping(value = "/borrar")
+	public String borrar( @RequestParam(value = "id") Long id) {
 		
 		
-Coche coche = null;
+		Coche coche = null;
 		
-		if(idCoche > 0) {
-			 coche = cocheService.buscarPorId(idCoche);
-			
-			if (coche == null) {
-				System.out.println("Error el id no existe");
-				return "redirect:/views/";
-			}
-		}else {
-			System.out.println("Error con el id");
-			return "redirect:/views/";
-		}
+				
+		coche.setId(id);
 		
-		cocheService.eliminar(idCoche);
+		cocheService.eliminar(id);
+		
+		
 		
 		return "redirect:/views/";
 	}
