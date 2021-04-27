@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="plantilla/template :: head">
 </head>
-<body>
+<body class="container bg-danger">
 	<header th:replace="plantilla/template :: header"></header>
 	<div class="container text-center py-5">
 		
@@ -22,7 +22,7 @@
 				</div>
 			<div class="panel-body">
 			
-				<img th:src="@{/images/cj.jpg}" width="400" height="400">
+				<img th:src="@{/images/cj.jpg}" class="img-rounded" width="400" height="400">
 				<br>
 				
 				<h4  class="panel-title text-white">La solicitud realizada es incorrecta!</h4>

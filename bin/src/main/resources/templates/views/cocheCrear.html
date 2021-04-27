@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="plantilla/template :: head">
 </head>
-<body class="bg-danger">
+<body>
 	<header th:replace="plantilla/template :: header"></header>
 	<div class="container">
-		<br><br>
+		<br>
 	
 		<div class="card bg-light">
 			<div class="card-header bg-dark text-white"><p th:text="${titulo}"></p></div>
@@ -57,7 +57,7 @@
 							th:errors="*{km}"></small>
 					</div>
 					<div class="card-footer bg-dark">
-					<input type="submit" class="btn  btn-sm bg-light  text-black" value="Guardar">
+					<input type="submit" class="btn btn-primary btn-sm bg-dark text-center text-white" value="Guardar">
 					</div>
 					
 				</form>
