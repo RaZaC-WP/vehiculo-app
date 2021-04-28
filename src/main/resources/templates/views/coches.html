@@ -16,11 +16,11 @@
 			title="Crear nuevo coche"></a> <br> <br>
 			
 		
-<form th:action="@{/borrar}" th:object="${coche}" method="POST">
+<form th:action="@{/views/borrar}" th:object="${coche}" method="POST">
 		<table class="table table-dark table-striped table-hover text-center">
 			<thead>
 				<tr>
-					<th scope="col">No.</th>
+					
 					<th scope="col">Marca</th>
 					<th scope="col">Modelo</th>
 					<th scope="col">Precio</th>
@@ -28,14 +28,14 @@
 					<th scope="col">CV</th>
 					<th scope="col">Kil&oacute;metros</th>
 					<th scope="col"></th>
-					<th scope="col"><input type="submit" value="eliminar"></th>
+					<th scope="col"><input class="btn btn-danger btn-sm" type="submit" value="Eliminar"></th>
 					
 
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="c , tabla: ${coches}">
-					<td th:text="${tabla.count}"></td>
+				<tr th:each="c: ${coches}">
+					
 					<th scope="row" th:text="${c.marca}"></th>
 					<td th:text="${c.modelo}"></td>
 					<td th:text="${c.precio}"></td>
@@ -46,7 +46,7 @@
 						th:href="@{/views/editar/} + ${c.id}" th:text="'Editar'"
 						title="Editar coche"></a></td>
 
-					<td><input type="checkbox" th:name="id" ></td>
+					<td><input type="checkbox" th:name="id"  th:value="${c.id}"></td>
 
 					
 
