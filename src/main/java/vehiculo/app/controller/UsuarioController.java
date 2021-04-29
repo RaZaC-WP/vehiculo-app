@@ -1,5 +1,7 @@
 package vehiculo.app.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,29 +10,30 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import vehiculo.app.models.entity.Usuario;
+import vehiculo.app.models.entity.User;
 
-import vehiculo.app.models.service.IUsuarioService;
+
+import vehiculo.app.models.service.UserDetailsServiceImpl;
 
 @Controller
 public class UsuarioController {
 	@Autowired
-	private IUsuarioService usuarioService;
+	private UserDetailsServiceImpl usuarioService;
 	
 	
 	@PostMapping("/registrado")
-	public String registrado(@ModelAttribute Usuario usuario) {
+	public String registrado(@ModelAttribute User usuario) {
 		
 		
 		
-		usuarioService.guardar(usuario);
+		usuarioService.loadUserByUsername(usuario.getUsername());
 		
 		return "views/registro_success";
 	}
 	
 	@GetMapping("/inicioSesion")
 	public String inicioSesion(Model model) {
-		Usuario usuario = new Usuario();
+		User usuario = new User();
 		model.addAttribute("titulo", "Formulario: Iniciar Sesion");
 		model.addAttribute("usuario", usuario);
 		
@@ -38,8 +41,11 @@ public class UsuarioController {
 		
 	}
 	
-	@GetMapping("/comprobar")
-	public String comprobar(@ModelAttribute Usuario usuario) {
+	/** @PostMapping("/comprobar")
+	public String comprobar(@ModelAttribute Usuario usuario , List<Usuario> usuarios) {
+		
+		System.out.println(usuarioService.loadUserByUsername());
+		
 		
 		
 			return "index";
@@ -47,5 +53,5 @@ public class UsuarioController {
 		
 		
 		
-	}
+	} **/
 }

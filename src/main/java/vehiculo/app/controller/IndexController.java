@@ -4,7 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import vehiculo.app.models.entity.Usuario;
+import vehiculo.app.models.entity.User;
+
 
 
 @Controller
@@ -18,7 +19,7 @@ public class IndexController {
 	
 	@GetMapping("/registrar")
 	public String registrar(Model model) {
-		Usuario usuario = new Usuario();
+		User usuario = new User();
 		model.addAttribute("titulo", "Formulario: Nuevo Usuario");
 		model.addAttribute("usuario", usuario);
 		
